@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객 관리 - 제조 관리 시스템</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/customers.css">
+</head>
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>제조 관리</h2>
+            <p class="admin-info"></p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i>📊</i> 대시보드</a></li>
+            <li><a href="customers.html"><i>👥</i> 고객 관리</a></li>
+            <li><a href="products.html"><i>📦</i> 제품 관리</a></li>
+            <li><a href="parts.html"><i>🔧</i> 부품 관리</a></li>
+            <li><a href="machines.html"><i>⚙️</i> 기계 관리</a></li>
+            <li><a href="orders.html"><i>📋</i> 주문 관리</a></li>
+            <li><a href="notifications.html"><i>🔔</i> 알림 <span class="notification-badge"></span></a></li>
+            <li><a href="#" onclick="logout()"><i>🚪</i> 로그아웃</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1>고객 관리</h1>
+            <p>고객 정보를 등록하고 관리합니다</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>고객 목록</h2>
+                <div class="flex gap-10">
+                    <input type="text" id="searchInput" placeholder="검색..." class="form-control" style="width: 250px;" onkeyup="searchTable('searchInput', 'customersTable')">
+                    <button class="btn btn-primary" onclick="openAddModal()">+ 고객 등록</button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table id="customersTable">
+                    <thead>
+                    <tr>
+                        <th>고객번호</th>
+                        <th>고객명</th>
+                        <th>전화번호</th>
+                        <th>이메일</th>
+                        <th>고객 타입</th>
+                        <th>등록일</th>
+                        <th>관리</th>
+                    </tr>
+                    </thead>
+                    <tbody id="customersTableBody">
+                    <tr>
+                        <td colspan="7" class="empty-state">등록된 고객이 없습니다.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- 고객 등록/수정 모달 -->
+<div id="customerModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">고객 등록</h2>
+            <span class="close-btn" onclick="closeModal('customerModal')">&times;</span>
+        </div>
+        <form id="customerForm">
+            <input type="hidden" id="customerId">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="customerName">고객명 *</label>
+                    <input type="text" id="customerName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone">전화번호 *</label>
+                    <input type="tel" id="customerPhone" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="customerEmail">이메일</label>
+                    <input type="email" id="customerEmail" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="customerType">고객 타입 *</label>
+                    <select id="customerType" class="form-control" required>
+                        <option value="">선택하세요</option>
+                        <option value="개인">개인</option>
+                        <option value="주식회사">주식회사</option>
+                        <option value="중견기업">중견기업</option>
+                        <option value="대기업">대기업</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex-between mt-20">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('customerModal')">취소</button>
+                <button type="submit" class="btn btn-success">저장</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/customers.js"></script>
+</body>
+</html>

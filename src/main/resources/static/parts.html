@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>부품 관리 - 제조 관리 시스템</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/parts.css">
+</head>
+<body>
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>제조 관리</h2>
+      <p class="admin-info"></p>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="dashboard.html"><i>📊</i> 대시보드</a></li>
+      <li><a href="customers.html"><i>👥</i> 고객 관리</a></li>
+      <li><a href="products.html"><i>📦</i> 제품 관리</a></li>
+      <li><a href="parts.html"><i>🔧</i> 부품 관리</a></li>
+      <li><a href="machines.html"><i>⚙️</i> 기계 관리</a></li>
+      <li><a href="orders.html"><i>📋</i> 주문 관리</a></li>
+      <li><a href="notifications.html"><i>🔔</i> 알림 <span class="notification-badge"></span></a></li>
+      <li><a href="#" onclick="logout()"><i>🚪</i> 로그아웃</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="page-header">
+      <h1>부품 관리</h1>
+      <p>부품 재고를 등록하고 관리합니다</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>부품 목록</h2>
+        <div class="flex gap-10">
+          <input type="text" id="searchInput" placeholder="검색..." class="form-control" style="width: 250px;" onkeyup="searchTable('searchInput', 'partsTable')">
+          <button class="btn btn-primary" onclick="openAddModal()">+ 부품 등록</button>
+        </div>
+      </div>
+      <div class="table-container">
+        <table id="partsTable">
+          <thead>
+          <tr>
+            <th>부품번호</th>
+            <th>부품명</th>
+            <th>기계명</th>
+            <th>현재 재고</th>
+            <th>안전 재고</th>
+            <th>생산 시간(분)</th>
+            <th>상태</th>
+            <th>관리</th>
+          </tr>
+          </thead>
+          <tbody id="partsTableBody">
+          <tr>
+            <td colspan="8" class="empty-state">등록된 부품이 없습니다.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- 부품 등록/수정 모달 -->
+<div id="partModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="modalTitle">부품 등록</h2>
+      <span class="close-btn" onclick="closeModal('partModal')">&times;</span>
+    </div>
+    <form id="partForm">
+      <input type="hidden" id="partId">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="partName">부품명 *</label>
+          <input type="text" id="partName" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="machineId">기계 *</label>
+          <select id="machineId" class="form-control" required>
+            <option value="">선택하세요</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="stockQuantity">현재 재고 *</label>
+          <input type="number" id="stockQuantity" class="form-control" min="0" value="0" required>
+        </div>
+        <div class="form-group">
+          <label for="safetyStock">안전 재고 *</label>
+          <input type="number" id="safetyStock" class="form-control" min="0" value="10" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="productionTime">개당 생산 시간(분) *</label>
+        <input type="number" id="productionTime" class="form-control" min="0" step="0.1" value="1" required>
+      </div>
+      <div class="flex-between mt-20">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('partModal')">취소</button>
+        <button type="submit" class="btn btn-success">저장</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 재고 조정 모달 -->
+<div id="stockModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>재고 조정</h2>
+      <span class="close-btn" onclick="closeModal('stockModal')">&times;</span>
+    </div>
+    <div id="stockInfo" class="stock-info"></div>
+    <form id="stockForm">
+      <input type="hidden" id="stockPartId">
+      <div class="form-group">
+        <label for="stockAdjustment">조정 수량 *</label>
+        <input type="number" id="stockAdjustment" class="form-control" placeholder="양수: 입고, 음수: 출고" required>
+        <small>현재 재고에 더할 수량을 입력하세요 (예: +50, -20)</small>
+      </div>
+      <div class="flex-between mt-20">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('stockModal')">취소</button>
+        <button type="submit" class="btn btn-success">조정</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/parts.js"></script>
+</body>
+</html>

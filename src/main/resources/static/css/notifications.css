@@ -1,0 +1,65 @@
+/* 알림 관리 페이지 특정 스타일 */
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.btn-icon {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-read {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-read:hover {
+    background-color: #2980b9;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+/* 안읽은 알림 강조 */
+.unread-row {
+    background-color: #e3f2fd !important;
+    font-weight: 500;
+}
+
+.unread-row:hover {
+    background-color: #bbdefb !important;
+}
+
+/* 알림 유형 아이콘 */
+.notification-type-icon {
+    font-size: 1.2rem;
+    margin-right: 5px;
+}
+
+/* 알림 내용 */
+.notification-message {
+    line-height: 1.5;
+}
+
+/* 테이블 행 높이 조정 */
+#notificationsTable tbody tr {
+    height: 60px;
+}
+
+#notificationsTable tbody td {
+    vertical-align: middle;
+    padding: 10px 12px;
+}

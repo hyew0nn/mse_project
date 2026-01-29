@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알림 관리 - 제조 관리 시스템</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/notifications.css">
+</head>
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>제조 관리</h2>
+            <p class="admin-info"></p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i>📊</i> 대시보드</a></li>
+            <li><a href="customers.html"><i>👥</i> 고객 관리</a></li>
+            <li><a href="products.html"><i>📦</i> 제품 관리</a></li>
+            <li><a href="parts.html"><i>🔧</i> 부품 관리</a></li>
+            <li><a href="machines.html"><i>⚙️</i> 기계 관리</a></li>
+            <li><a href="orders.html"><i>📋</i> 주문 관리</a></li>
+            <li><a href="notifications.html"><i>🔔</i> 알림 <span class="notification-badge"></span></a></li>
+            <li><a href="#" onclick="logout()"><i>🚪</i> 로그아웃</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1>알림 관리</h1>
+            <p>시스템 알림을 확인하고 관리합니다</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>알림 목록</h2>
+                <div class="flex gap-10">
+                    <button class="btn btn-success btn-small" onclick="markAllAsRead()">모두 읽음 처리</button>
+                    <button class="btn btn-danger btn-small" onclick="clearAllNotifications()">모두 삭제</button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table id="notificationsTable">
+                    <thead>
+                    <tr>
+                        <th style="width: 80px;">상태</th>
+                        <th style="width: 120px;">유형</th>
+                        <th>내용</th>
+                        <th style="width: 150px;">발생 시간</th>
+                        <th style="width: 120px;">관리</th>
+                    </tr>
+                    </thead>
+                    <tbody id="notificationsTableBody">
+                    <tr>
+                        <td colspan="5" class="empty-state">알림이 없습니다.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/notifications.js"></script>
+</body>
+</html>

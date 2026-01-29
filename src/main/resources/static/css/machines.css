@@ -1,0 +1,53 @@
+/* 기계 관리 페이지 특정 스타일 */
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.btn-icon {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-edit {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #2980b9;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+/* 운영 모드 배지 */
+.op-mode-badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.op-mode-24 {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.op-mode-9to18 {
+    background-color: #fff3e0;
+    color: #f57c00;
+}

@@ -1,0 +1,134 @@
+/* 제품 관리 페이지 특정 스타일 */
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.btn-icon {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-edit {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #2980b9;
+}
+
+.btn-bom {
+    background-color: #9b59b6;
+    color: white;
+}
+
+.btn-bom:hover {
+    background-color: #8e44ad;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* BOM 테이블 스타일 */
+#bomTableBody td {
+    vertical-align: middle;
+}
+
+.bom-info {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.bom-info strong {
+    color: #2c3e50;
+}
+
+/* 상세 정보 패널 */
+.detail-panel {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.detail-content {
+    padding: 5px 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.detail-section {
+    padding: 15px 20px;
+    flex: 1;
+}
+
+.detail-section:last-of-type {
+    border-bottom: none;
+}
+
+.detail-section h3 {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+}
+
+.admin-info-box {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+
+/* 테이블 행 클릭 효과 */
+#productsTable tbody tr {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#productsTable tbody tr:hover {
+    background-color: #e3f2fd !important;
+}
+
+#productsTable tbody tr.selected {
+    background-color: #bbdefb !important;
+}

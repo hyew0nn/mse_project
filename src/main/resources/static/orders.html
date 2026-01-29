@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문 관리 - 제조 관리 시스템</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/orders.css">
+</head>
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>제조 관리</h2>
+            <p class="admin-info"></p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i>📊</i> 대시보드</a></li>
+            <li><a href="customers.html"><i>👥</i> 고객 관리</a></li>
+            <li><a href="products.html"><i>📦</i> 제품 관리</a></li>
+            <li><a href="parts.html"><i>🔧</i> 부품 관리</a></li>
+            <li><a href="machines.html"><i>⚙️</i> 기계 관리</a></li>
+            <li><a href="orders.html"><i>📋</i> 주문 관리</a></li>
+            <li><a href="notifications.html"><i>🔔</i> 알림 <span class="notification-badge"></span></a></li>
+            <li><a href="#" onclick="logout()"><i>🚪</i> 로그아웃</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1>주문 관리</h1>
+            <p>주문 정보를 등록하고 관리합니다</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>주문 목록</h2>
+                <div class="flex gap-10">
+                    <input type="text" id="searchInput" placeholder="검색..." class="form-control" style="width: 250px;" onkeyup="searchTable('searchInput', 'ordersTable')">
+                    <button class="btn btn-primary" onclick="openAddOrderModal()">+ 주문 등록</button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table id="ordersTable">
+                    <thead>
+                    <tr>
+                        <th>주문번호</th>
+                        <th>고객명</th>
+                        <th>제품명</th>
+                        <th>수량</th>
+                        <th>상태</th>
+                        <th>시작일</th>
+                        <th>마감일</th>
+                        <th>관리</th>
+                    </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                    <tr>
+                        <td colspan="8" class="empty-state">등록된 주문이 없습니다.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- 주문 등록/수정 모달 -->
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">주문 등록</h2>
+            <span class="close-btn" onclick="closeModal('orderModal')">&times;</span>
+        </div>
+        <form id="orderForm">
+            <input type="hidden" id="orderId">
+            <input type="hidden" id="estimatedCompletionAt">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="customerIdSelect">고객 *</label>
+                    <select id="customerIdSelect" class="form-control" required>
+                        <option value="">선택하세요</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productIdSelect">제품 *</label>
+                    <select id="productIdSelect" class="form-control" required>
+                        <option value="">선택하세요</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="quantityInput">수량 *</label>
+                    <input type="number" id="quantityInput" class="form-control" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="orderStatus">상태 *</label>
+                    <select id="orderStatus" class="form-control" required>
+                        <option value="접수">접수</option>
+                        <option value="진행중">진행중</option>
+                        <option value="완료">완료</option>
+                        <option value="지연">지연</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="startedAt">시작일</label>
+                    <input type="date" id="startedAt" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="deadline">마감일 *</label>
+                    <input type="date" id="deadline" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="estimated-completion">
+                <p id="estimatedCompletionDisplay" class="text-info"></p>
+            </div>
+
+            <div class="flex-between mt-20">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('orderModal')">취소</button>
+                <button type="submit" class="btn btn-success">저장</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/orders.js"></script>
+</body>
+</html>

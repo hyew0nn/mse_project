@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>대시보드 - 제조 관리 시스템</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>제조 관리</h2>
+      <p class="admin-info"></p>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="dashboard.html"><i>📊</i> 대시보드</a></li>
+      <li><a href="customers.html"><i>👥</i> 고객 관리</a></li>
+      <li><a href="products.html"><i>📦</i> 제품 관리</a></li>
+      <li><a href="parts.html"><i>🔧</i> 부품 관리</a></li>
+      <li><a href="machines.html"><i>⚙️</i> 기계 관리</a></li>
+      <li><a href="orders.html"><i>📋</i> 주문 관리</a></li>
+      <li><a href="notifications.html"><i>🔔</i> 알림 <span class="notification-badge"></span></a></li>
+      <li><a href="#" onclick="logout()"><i>🚪</i> 로그아웃</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="page-header">
+      <h1>대시보드</h1>
+      <p>제조 관리 시스템 현황</p>
+    </div>
+
+    <!-- 통계 카드 -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background-color: #3498db;">📋</div>
+        <div class="stat-info">
+          <h3 id="totalOrders">0</h3>
+          <p>전체 주문</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background-color: #f39c12;">⏳</div>
+        <div class="stat-info">
+          <h3 id="activeOrders">0</h3>
+          <p>진행중 주문</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background-color: #27ae60;">📦</div>
+        <div class="stat-info">
+          <h3 id="totalProducts">0</h3>
+          <p>등록 제품</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background-color: #e74c3c;">⚠️</div>
+        <div class="stat-info">
+          <h3 id="lowStockParts">0</h3>
+          <p>재고 부족 부품</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 차트 및 정보 -->
+    <div class="dashboard-grid">
+      <!-- 최근 주문 -->
+      <div class="card">
+        <div class="card-header">
+          <h2>최근 주문</h2>
+          <a href="orders.html" class="btn btn-small btn-primary">전체보기</a>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+            <tr>
+              <th>주문번호</th>
+              <th>고객명</th>
+              <th>제품명</th>
+              <th>수량</th>
+              <th>상태</th>
+              <th>마감일</th>
+            </tr>
+            </thead>
+            <tbody id="recentOrdersTable">
+            <tr>
+              <td colspan="6" class="empty-state">주문이 없습니다.</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 기계 상태 -->
+      <div class="card">
+        <div class="card-header">
+          <h2>기계 상태</h2>
+          <a href="machines.html" class="btn btn-small btn-primary">전체보기</a>
+        </div>
+        <div class="machine-status">
+          <div class="status-item">
+            <div class="status-label">가동중</div>
+            <div class="status-value" id="machinesOn">0</div>
+          </div>
+          <div class="status-item">
+            <div class="status-label">정지</div>
+            <div class="status-value" id="machinesOff">0</div>
+          </div>
+          <div class="status-item">
+            <div class="status-label">고장</div>
+            <div class="status-value" id="machinesFault">0</div>
+          </div>
+        </div>
+        <div id="machinesList" class="machines-list"></div>
+      </div>
+
+      <!-- 최근 알림 -->
+      <div class="card">
+        <div class="card-header">
+          <h2>최근 알림</h2>
+          <a href="notifications.html" class="btn btn-small btn-primary">전체보기</a>
+        </div>
+        <div id="recentNotifications" class="notifications-list">
+          <p class="empty-state">알림이 없습니다.</p>
+        </div>
+      </div>
+
+      <!-- 재고 부족 부품 -->
+      <div class="card">
+        <div class="card-header">
+          <h2>재고 부족 부품</h2>
+          <a href="parts.html" class="btn btn-small btn-primary">전체보기</a>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+            <tr>
+              <th>부품명</th>
+              <th>현재 재고</th>
+              <th>안전 재고</th>
+            </tr>
+            </thead>
+            <tbody id="lowStockTable">
+            <tr>
+              <td colspan="3" class="empty-state">재고 부족 부품이 없습니다.</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+/* 고객 관리 페이지 특정 스타일 */
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.customer-type-badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.customer-type-개인 {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.customer-type-주식회사 {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.customer-type-중견기업 {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.customer-type-대기업 {
+    background-color: #e8f5e9;
+    color: #388e3c;
+}
+
+/* 테이블 액션 버튼 */
+.btn-icon {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-edit {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #2980b9;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}

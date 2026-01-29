@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>제품 관리 - 제조 관리 시스템</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/products.css">
+</head>
+<body>
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>제조 관리</h2>
+      <p class="admin-info"></p>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="dashboard.html"><i>📊</i> 대시보드</a></li>
+      <li><a href="customers.html"><i>👥</i> 고객 관리</a></li>
+      <li><a href="products.html"><i>📦</i> 제품 관리</a></li>
+      <li><a href="parts.html"><i>🔧</i> 부품 관리</a></li>
+      <li><a href="machines.html"><i>⚙️</i> 기계 관리</a></li>
+      <li><a href="orders.html"><i>📋</i> 주문 관리</a></li>
+      <li><a href="notifications.html"><i>🔔</i> 알림 <span class="notification-badge"></span></a></li>
+      <li><a href="#" onclick="logout()"><i>🚪</i> 로그아웃</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="page-header">
+      <h1>제품 관리</h1>
+      <p>제품 정보와 BOM 구성을 관리합니다</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>제품 목록</h2>
+        <div class="flex gap-10">
+          <input type="text" id="searchInput" placeholder="검색..." class="form-control" style="width: 250px;" onkeyup="searchTable('searchInput', 'productsTable')">
+          <button class="btn btn-primary" onclick="openAddModal()">+ 제품 등록</button>
+        </div>
+      </div>
+      <div class="table-container">
+        <table id="productsTable">
+          <thead>
+          <tr>
+            <th>제품번호</th>
+            <th>제품명</th>
+            <th>제품 코드</th>
+            <th>현재 버전</th>
+            <th>설명</th>
+            <th>등록일</th>
+            <th>DOM</th>
+          </tr>
+          </thead>
+          <tbody id="productsTableBody">
+          <tr>
+            <td colspan="6" class="empty-state">등록된 제품이 없습니다.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 상세 정보 패널 -->
+    <div id="productDetailPanel" class="detail-panel">
+      <div class="detail-content">
+        <div class="detail-section">
+          <h3>기본 정보</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>제품번호</label>
+              <input type="text" id="detail_product_id" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+              <label>등록일</label>
+              <input type="text" id="detail_created_at" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>제품명 *</label>
+              <input type="text" id="detail_product_name" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>제품 코드 *</label>
+              <input type="text" id="detail_product_code" class="form-control">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>현재 버전 *</label>
+              <input type="text" id="detail_current_version" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>제품 설명</label>
+            <textarea id="detail_product_description" class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h3>관리자 정보</h3>
+          <div class="admin-info-box">
+            <div class="form-row">
+              <div class="form-group">
+                <label>관리자 코드</label>
+                <input type="text" id="detail_admin_code" class="form-control" readonly>
+              </div>
+              <div class="form-group">
+                <label>관리자 이름</label>
+                <input type="text" id="detail_admin_name" class="form-control" readonly>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>부서</label>
+                <input type="text" id="detail_admin_department" class="form-control" readonly>
+              </div>
+              <div class="form-group">
+                <label>직책</label>
+                <input type="text" id="detail_admin_position" class="form-control" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>마지막 수정일</label>
+              <input type="text" id="detail_updated_at" class="form-control" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-actions">
+        <button class="btn btn-success" onclick="saveProductDetail()">수정</button>
+        <button class="btn btn-danger" onclick="deleteProductFromDetail()">삭제</button>
+        <button class="btn btn-secondary" onclick="closeDetailPanel()">취소</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- 제품 등록/수정 모달 -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="modalTitle">제품 등록</h2>
+      <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
+    </div>
+    <form id="productForm">
+      <input type="hidden" id="productId">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="productName">제품명 *</label>
+          <input type="text" id="productName" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="productCode">제품 코드 *</label>
+          <input type="text" id="productCode" class="form-control" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="currentVersion">버전 *</label>
+          <input type="text" id="currentVersion" class="form-control" value="1.0" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="productDescription">제품 설명</label>
+        <textarea id="productDescription" class="form-control" rows="3"></textarea>
+      </div>
+      <div class="flex-between mt-20">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('productModal')">취소</button>
+        <button type="submit" class="btn btn-success">저장</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- BOM 구성 모달 -->
+<div id="bomModal" class="modal">
+  <div class="modal-content" style="max-width: 800px;">
+    <div class="modal-header">
+      <h2 id="bomModalTitle">BOM 구성 관리</h2>
+      <span class="close-btn" onclick="closeModal('bomModal')">&times;</span>
+    </div>
+    <div id="bomContent">
+      <div class="flex-between mb-20">
+        <div>
+          <strong>제품:</strong> <span id="bomProductName"></span><br>
+          <strong>버전:</strong> <span id="bomProductVersion"></span>
+        </div>
+        <button class="btn btn-primary btn-small" onclick="openAddBomItemModal()">+ 부품 추가</button>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+          <tr>
+            <th>부품명</th>
+            <th>필요 수량</th>
+            <th>관리</th>
+          </tr>
+          </thead>
+          <tbody id="bomTableBody">
+          <tr>
+            <td colspan="3" class="empty-state">구성 부품이 없습니다.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOM 부품 추가 모달 -->
+<div id="bomItemModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>부품 추가</h2>
+      <span class="close-btn" onclick="closeModal('bomItemModal')">&times;</span>
+    </div>
+    <form id="bomItemForm">
+      <div class="form-group">
+        <label for="bomPartId">부품 *</label>
+        <select id="bomPartId" class="form-control" required>
+          <option value="">선택하세요</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="bomQuantity">필요 수량 *</label>
+        <input type="number" id="bomQuantity" class="form-control" min="1" value="1" required>
+      </div>
+      <div class="flex-between mt-20">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('bomItemModal')">취소</button>
+        <button type="submit" class="btn btn-success">추가</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/products.js"></script>
+</body>
+</html>

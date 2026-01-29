@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - 제조 관리 시스템</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+<div class="login-container">
+    <div class="login-box">
+        <div class="login-header">
+            <h1>제조 관리 시스템</h1>
+            <p>Manufacturing Management System</p>
+        </div>
+
+        <form id="loginForm" class="login-form">
+            <div class="form-group">
+                <label for="adminCode">관리자 코드</label>
+                <input type="text" id="adminCode" class="form-control" placeholder="예: ADMIN001" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" class="form-control" placeholder="비밀번호를 입력하세요" required>
+            </div>
+
+            <div id="errorMessage" class="error-message"></div>
+
+            <button type="submit" class="btn-login">로그인</button>
+        </form>
+
+        <div class="login-footer">
+            <p>기본 계정: ADMIN001 / admin123</p>
+        </div>
+    </div>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>
