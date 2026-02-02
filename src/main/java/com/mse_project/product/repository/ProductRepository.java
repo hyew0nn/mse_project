@@ -1,7 +1,10 @@
 package com.mse_project.product.repository;
 
+import com.mse_project.product.dto.DetailProductResponse;
 import com.mse_project.product.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -10,4 +13,12 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Boolean existsByProductCode(String productCode);
     Optional<Product> findByProductId(Long productId);
+
+    @Query("SELECT new com.mse_project.product.dto.DetailProductResponse(" +
+            "p.productId, p.productName, p.productCode, p.currentVersion, p.productDescription, p.stockQuantity, p.safetyStock, " +
+            "new com.mse_project.admin.dto.AdminDto(" +
+            "a.adminId, a.adminName, a.adminCode, a.department, a.position)) " +
+            "FROM Product p, Admin a " +
+            "WHERE p.productId = :productId and p.updatedBy = a.adminId"
+    ) Optional<DetailProductResponse> getProductDetailDto(@Param("productId") Long productId);
 }
