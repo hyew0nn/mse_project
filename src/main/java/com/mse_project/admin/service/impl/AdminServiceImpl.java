@@ -9,6 +9,7 @@ import com.mse_project.common.exception.business.AdminBusinessExceptions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -42,8 +43,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Transactional
     public void updateLastLoginAt(Admin admin) {
         admin.updateLastLoginAt(LocalDateTime.now());
-        adminRepository.save(admin);
     }
 }
