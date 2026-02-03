@@ -4,6 +4,7 @@ import com.mse_project.admin.entity.Admin;
 import com.mse_project.admin.service.AdminService;
 import com.mse_project.auth.UserDetailsImpl;
 import com.mse_project.auth.dto.LoginResponse;
+import com.mse_project.common.exception.business.AuthBusinessExceptions;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +36,9 @@ public class AuthService {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         Admin admin = Optional.ofNullable(userDetails.getAdmin())
-                .orElseThrow(() -> new IllegalStateException("인증된 사용자의 상세 정보가 존재하지 않습니다."));
+                .orElseThrow(AuthBusinessExceptions.UserDetailNotFoundException::new);
 
-        adminService.updateLastLoginAt(admin);
+        adminService.updateLastLoginAt(admin.getAdminId());
 
         return LoginResponse.from(admin);
     }
