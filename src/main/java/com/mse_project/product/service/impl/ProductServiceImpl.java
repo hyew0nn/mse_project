@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
+    @Transactional
     @Override
     public void insertProduct(AdminSessionDto admin, InsertProductRequest request) {
         Boolean existProduct = productRepository.existsByProductCode(request.getProductCode());
@@ -58,9 +59,11 @@ public class ProductServiceImpl implements ProductService {
         return PageProductResponse.from(page);
     }
 
-    private Product getProduct(Long productId) {
+    @Override
+    public Product getProduct(Long productId) {
         return productRepository.findByProductId(productId)
                 .orElseThrow(() -> new ProductBusinessExceptions.ProductNotFoundByProductIdException(productId));
 
     }
+
 }

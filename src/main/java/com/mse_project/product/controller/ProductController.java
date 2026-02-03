@@ -55,8 +55,8 @@ public class ProductController {
     @PutMapping("/{productId}")
     public ResponseEntity<ApiResponse<String>> updateProduct(
             @CurrentAdmin AdminSessionDto admin,
-            @RequestBody UpdateProductRequest request,
-            @Valid @PathVariable("productId") Long productId){
+            @Valid @RequestBody UpdateProductRequest request,
+            @PathVariable("productId") Long productId){
 
         productService.updateProduct(admin, request, productId);
         return ResponseEntity.ok(ApiResponse.success("상품 수정에 성공하셨습니다."));

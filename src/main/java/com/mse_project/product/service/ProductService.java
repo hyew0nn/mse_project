@@ -5,6 +5,7 @@ import com.mse_project.product.dto.DetailProductResponse;
 import com.mse_project.product.dto.InsertProductRequest;
 import com.mse_project.product.dto.PageProductResponse;
 import com.mse_project.product.dto.UpdateProductRequest;
+import com.mse_project.product.entity.Product;
 import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
@@ -13,4 +14,5 @@ public interface ProductService {
     void deleteProduct(AdminSessionDto admin, Long productId);
     DetailProductResponse getProductDetail(Long productId);
     PageProductResponse getProductPage(Pageable pageable);
+    Product getProduct(Long productId);
 }
