@@ -78,6 +78,13 @@ public class Product extends BaseTimeEntity {
         this.updatedBy = adminId;
     }
 
+    public void decreaseStock(int quantity) {
+        if (this.stockQuantity < quantity) {
+            throw new IllegalStateException("재고가 부족합니다.");
+        }
+        this.stockQuantity -= quantity;
+    }
+
 
     public void deleteProduct(Long adminId) {
         this.isDeleted = true;
