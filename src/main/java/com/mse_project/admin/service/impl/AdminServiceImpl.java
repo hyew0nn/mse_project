@@ -21,6 +21,7 @@ public class AdminServiceImpl implements AdminService {
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     @Override
     public CreateAdminResponse registerAdmin(CreateAdminRequest request) {
         Optional<Admin> adminExist = adminRepository.findByAdminCode(request.getAdminCode());

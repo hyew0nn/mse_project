@@ -15,7 +15,10 @@ public class UpdateProductRequest {
     @Size(min = 3, message = "상품코드는 최소 3자 이상이어야 합니다.")
     private String productCode;
 
-    @Pattern(regexp="^\\\\d{1,2}.\\\\d{1,2}$")
+    @Pattern(
+            regexp="^\\d{1,2}\\.\\d{1,2}$",
+            message = "버전은 x.y 형식이어야 합니다"
+    )
     private String currentVersion;
 
     private String productDescription;

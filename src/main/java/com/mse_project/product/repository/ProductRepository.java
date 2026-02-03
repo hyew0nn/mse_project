@@ -17,7 +17,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT new com.mse_project.product.dto.DetailProductResponse(" +
             "p.productId, p.productName, p.productCode, p.currentVersion, p.productDescription, p.stockQuantity, p.safetyStock, " +
             "new com.mse_project.admin.dto.AdminDto(" +
-            "a.adminId, a.adminName, a.adminCode, a.department, a.position)) " +
+            "a.adminId, a.adminCode, a.adminName, a.department, a.position)) " +
             "FROM Product p, Admin a " +
             "WHERE p.productId = :productId and p.updatedBy = a.adminId"
     ) Optional<DetailProductResponse> getProductDetailDto(@Param("productId") Long productId);
