@@ -43,9 +43,11 @@ public class AdminServiceImpl implements AdminService {
         return admin;
     }
 
-    @Override
     @Transactional
-    public void updateLastLoginAt(Admin admin) {
+    @Override
+    public void updateLastLoginAt(Long adminId) {
+        Admin admin = adminRepository.findById(adminId)
+                        .orElseThrow(AdminBusinessExceptions.AdminNotFoundException::new);
         admin.updateLastLoginAt(LocalDateTime.now());
     }
 }

@@ -1,7 +1,7 @@
 package com.mse_project.auth;
 
 import com.mse_project.admin.entity.Admin;
-import lombok.Getter;
+import jakarta.annotation.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Getter
 public class UserDetailsImpl implements UserDetails {
 
     private final Admin admin;
@@ -21,6 +20,11 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(admin.getPosition().toString()));
+    }
+
+    @Nullable
+    public Admin getAdmin() {
+        return this.admin;
     }
 
     @Override
