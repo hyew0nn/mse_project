@@ -1,5 +1,6 @@
 package com.mse_project.product.dto;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -22,6 +23,11 @@ public class UpdateProductRequest {
     private String currentVersion;
 
     private String productDescription;
+
+    @Min(value = 0, message = "재고는 0 이하일 수 없습니다.")
     private Integer stockQuantity;
+
+    @Min(value = 0, message = "안전 재고는 0 이하일 수 없습니다.")
     private Integer safetyStock;
+
 }
