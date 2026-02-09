@@ -54,7 +54,7 @@ public class Order extends BaseTimeEntity {
                 .customer(customer)
                 .product(product)
                 .quantity(request.getQuantity())
-                .status(OrderStatus.valueOf(request.getOrderStatus()))
+                .status(request.getOrderStatus())
                 .startedAt(request.getStartedAt())
                 .deadline(request.getDeadline())
                 .updatedBy(adminId)

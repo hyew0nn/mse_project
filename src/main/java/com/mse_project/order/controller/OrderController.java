@@ -7,6 +7,7 @@ import com.mse_project.order.dto.DetailOrderResponse;
 import com.mse_project.order.dto.InsertOrderRequest;
 import com.mse_project.order.dto.PageOrderResponse;
 import com.mse_project.order.service.OrderService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -43,7 +44,7 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<ApiResponse<String>> createOrder(
             @CurrentAdmin AdminSessionDto admin,
-            @RequestBody InsertOrderRequest request
+            @Valid @RequestBody InsertOrderRequest request
     ){
         orderService.createOrder(admin, request);
         return ResponseEntity.ok(ApiResponse.success("주문 생성에 성공하셨습니다."));

@@ -12,7 +12,7 @@ public class ProductDto {
     private String productCode;
     private String currentVersion;
 
-    public static ProductDto toEntity(Product product) {
+    public static ProductDto ofEntity(Product product) {
         return ProductDto.builder()
                 .productId(product.getProductId())
                 .productName(product.getProductName())

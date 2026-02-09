@@ -1,5 +1,6 @@
 package com.mse_project.order.dto;
 
+import com.mse_project.order.entity.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,7 +13,7 @@ public class InsertOrderRequest {
     private Long customerId;
     private String productVersion;
     private Integer quantity;
-    private String orderStatus;
+    private OrderStatus orderStatus;
     private LocalDateTime startedAt;
     private LocalDateTime deadline;
 }
