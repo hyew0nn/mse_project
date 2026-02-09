@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 
 public class AdminBusinessExceptions {
 
-    public static class AdminNotFoundByAdminCodeException extends BusinessException {
-        public AdminNotFoundByAdminCodeException() {
+    public static class AdminNotFoundException extends BusinessException {
+        public AdminNotFoundException() {
             super(
                     "ADMIN_NOT_FOUND ",
                     "해당 관리자를 찾을 수 없습니다.",

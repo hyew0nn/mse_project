@@ -34,6 +34,14 @@ public class Product extends BaseTimeEntity {
     @Column(name = "current_version")
     private String currentVersion;
 
+    @Column(name = "stock_quantity", nullable = false)
+    @Builder.Default
+    private Integer stockQuantity = 0;
+
+    @Column(name = "safety_stock", nullable = false)
+    @Builder.Default
+    private Integer safetyStock = 0;
+
     @Column(name = "product_description", columnDefinition = "TEXT")
     private String productDescription;
 
@@ -42,32 +50,49 @@ public class Product extends BaseTimeEntity {
     private Boolean isDeleted = false;
 
     @Column(name = "updated_by")
-    private String updatedBy;
+    private Long updatedBy;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<ProductPart> productParts = new ArrayList<>();
 
-    public void updateProduct(String adminCode, UpdateProductRequest request) {
-        this.productName = request.getProductName();
-        this.productCode = request.getProductCode();
-        this.currentVersion = request.getCurrentVersion();
-        this.productDescription = request.getProductDescription();
-        this.updatedBy = adminCode;
+    public void updateProduct(Long adminId, UpdateProductRequest request) {
+        if (request.getProductName() != null) {
+            this.productName = request.getProductName();}
+
+        if (request.getProductCode() != null) {
+            this.productCode = request.getProductCode();}
+
+        if (request.getCurrentVersion() != null) {
+            this.currentVersion = request.getCurrentVersion();}
+
+        if (request.getProductDescription() != null) {
+            this.productDescription = request.getProductDescription();}
+
+        if (request.getStockQuantity() != null) {
+            this.stockQuantity = request.getStockQuantity();}
+
+        if (request.getSafetyStock() != null) {
+            this.safetyStock = request.getSafetyStock();}
+
+        this.updatedBy = adminId;
     }
 
-    public void deleteProduct(String adminCode) {
+
+    public void deleteProduct(Long adminId) {
         this.isDeleted = true;
-        this.updatedBy = adminCode;
+        this.updatedBy = adminId;
     }
 
-    public static Product toEntity(InsertProductRequest insertProductRequest, String adminCode) {
+    public static Product toEntity(InsertProductRequest insertProductRequest, Long adminId) {
         return Product.builder()
                 .productCode(insertProductRequest.getProductCode())
                 .productName(insertProductRequest.getProductName())
                 .currentVersion(insertProductRequest.getCurrentVersion())
                 .productDescription(insertProductRequest.getProductDescription())
-                .updatedBy(adminCode)
+                .stockQuantity(insertProductRequest.getStockQuantity())
+                .safetyStock(insertProductRequest.getSafetyStock())
+                .updatedBy(adminId)
                 .build();
     }
 }

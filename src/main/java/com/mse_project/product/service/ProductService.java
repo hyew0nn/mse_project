@@ -1,14 +1,18 @@
 package com.mse_project.product.service;
 
-import com.mse_project.admin.entity.Admin;
+import com.mse_project.admin.dto.AdminSessionDto;
+import com.mse_project.product.dto.DetailProductResponse;
 import com.mse_project.product.dto.InsertProductRequest;
+import com.mse_project.product.dto.PageProductResponse;
 import com.mse_project.product.dto.UpdateProductRequest;
 import com.mse_project.product.entity.Product;
+import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
-    void insertProduct(Admin admin, InsertProductRequest request);
-    void updateProduct(Admin admin, UpdateProductRequest request);
-    void deleteProduct(Admin admin, Long productId);
-    void getProductDetail(Product product);
-    void getListProduct();
+    void insertProduct(AdminSessionDto admin, InsertProductRequest request);
+    void updateProduct(AdminSessionDto admin, UpdateProductRequest request, Long productId);
+    void deleteProduct(AdminSessionDto admin, Long productId);
+    DetailProductResponse getProductDetail(Long productId);
+    PageProductResponse getProductPage(Pageable pageable);
+    Product getProduct(Long productId);
 }

@@ -9,6 +9,7 @@ import com.mse_project.common.exception.business.AdminBusinessExceptions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -20,6 +21,7 @@ public class AdminServiceImpl implements AdminService {
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     @Override
     public CreateAdminResponse registerAdmin(CreateAdminRequest request) {
         Optional<Admin> adminExist = adminRepository.findByAdminCode(request.getAdminCode());
@@ -41,9 +43,11 @@ public class AdminServiceImpl implements AdminService {
         return admin;
     }
 
+    @Transactional
     @Override
-    public void updateLastLoginAt(Admin admin) {
+    public void updateLastLoginAt(Long adminId) {
+        Admin admin = adminRepository.findById(adminId)
+                        .orElseThrow(AdminBusinessExceptions.AdminNotFoundException::new);
         admin.updateLastLoginAt(LocalDateTime.now());
-        adminRepository.save(admin);
     }
 }
