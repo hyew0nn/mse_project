@@ -25,7 +25,7 @@ jobs:
 
       # with은 plugin 파라미터 입니다. (java 17버전 셋업)
       - name: java setup
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           distribution: 'corretto' # See 'Supported distributions' for available options
           java-version: '17'
