@@ -3,9 +3,8 @@ name: CI
 
 # Event Trigger 특정 액션 (Push, Pull_Request)등이 명시한 Branch에서 일어나면 동작을 수행한다.
 on:
-    push:
-        # 배열로 여러 브랜치를 넣을 수 있다.
-        branches: [ dev, feat/* ]
+#    push:
+#        branches: [ dev, feat/* ]
     # github pull request 생성시
     pull_request:
         branches:
@@ -28,7 +27,7 @@ jobs:
       - name: java setup
         uses: actions/setup-java@v2
         with:
-          distribution: 'adopt' # See 'Supported distributions' for available options
+          distribution: 'corretto' # See 'Supported distributions' for available options
           java-version: '17'
 
       - name: make executable gradlew
