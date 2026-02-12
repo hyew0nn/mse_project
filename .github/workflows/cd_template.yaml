@@ -50,7 +50,7 @@ jobs:
           username: ec2-user
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          source: "docker-compose.yaml,Dockerfile,nginx.conf"
+          source: "docker-compose.yaml,Dockerfile,.env,nginx.conf"
           target: "/home/ec2-user/app/"
 
 
