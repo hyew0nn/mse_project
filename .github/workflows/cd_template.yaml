@@ -34,42 +34,15 @@ jobs:
           port: 22
           source: "build/libs/*.jar"
           target: "/home/ec2-user/app"
-          strip_components: 2
 
-      - name: SSH Commands
+      - name: Deploy with Docker Compose
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ec2-user
-          key: ${{ secrets.SSH_KEY }}
-          port: 22
-          script_stop: true
-          script: |
-            APP_DIR="/home/ec2-user/app"
-            APP_NAME="mse-project"
-
-            mkdir -p $APP_DIR
-
-            PID=$(pgrep -f "java.*$APP_NAME")
-            if [ -n "$PID" ]; then
-              echo "Found running app (PID: $PID). Terminating..."
-              kill -15 $PID
-
-              for i in {1..10}; do
-                if ! ps -p $PID > /dev/null; then break; fi
-                sleep 1
-              done
-
-              kill -9 $PID 2>/dev/null || true
-            fi
-
-            JAR_NAME=$(ls -t $APP_DIR/${APP_NAME}-*.jar | head -n 1)
-            if [ -z "$JAR_NAME" ]; then
-              echo "Error: No JAR file found in $APP_DIR"
-              exit 1
-            fi
-
-            echo "Starting deployment: $JAR_NAME"
-            nohup java -jar $JAR_NAME > $APP_DIR/app.log 2>&1 &
-
-            echo "Deployment submitted successfully."
+            host: ${{ secrets.SSH_HOST }}
+            username: ec2-user
+            key: ${{ secrets.SSH_KEY }}
+            port: 22
+            script: |
+              cd /home/ec2-user/app
+              docker-compose down
+              docker-compose up -d --build
