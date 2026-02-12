@@ -1,7 +1,22 @@
-version: "3"
+version: "3.8"
+
 services:
+  app:
+    build: .
+    container_name: mse-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    depends_on:
+      - mysql
+      - redis
+
   mysql:
-    image: mysql:latest
+    image: mysql:8.0
+    container_name: mse-mysql
     ports:
       - "23306:3306"
     environment:
@@ -9,14 +24,14 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
   redis:
-    image: redis:latest
+    image: redis:7
+    container_name: mse-redis
     ports:
       - "26379:6379"
+
   nginx:
     image: nginx:latest
     ports:
       - "80:80"
-    depends_on:
-      - redis
-      - mysql
