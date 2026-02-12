@@ -50,7 +50,7 @@ jobs:
           username: ec2-user
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          source: "docker-compose.yaml,Dockerfile"
+          source: "docker-compose.yaml,Dockerfile,nginx.conf"
           target: "/home/ec2-user/app/"
 
 
@@ -63,5 +63,5 @@ jobs:
             port: 22
             script: |
               cd /home/ec2-user/app
-              docker compose down
-              docker compose up -d --build
+              docker-compose down
+              docker-compose up -d --build
