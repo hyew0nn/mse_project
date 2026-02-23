@@ -25,6 +25,8 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_db:/var/lib/mysql
     restart: unless-stopped
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
@@ -38,3 +40,7 @@ services:
     container_name: mse-redis
     ports:
       - "26379:6379"
+
+volumes:
+  mysql_db:
+    external: true
